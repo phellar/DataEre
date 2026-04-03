@@ -24,7 +24,7 @@ class AuthController extends Controller
             ], 422);
         } 
         else{
-            $token = $user->createToken($user->name . 'Auth-Token')->plainTextToken;
+            $token = $user->createToken($user->firstName . 'Auth-Token')->plainTextToken;
 
             return response()->json([
                 'message' => 'Login Successful',
@@ -45,14 +45,14 @@ class AuthController extends Controller
             
 
             $user = User::create([
-                'firstName' => $request->name,
-                'lastName' => $request->name,
+                'firstName' => $request->firstName,
+                'lastName' => $request->lastName,
                 'email' =>$request->email,
                 'password' => Hash::make($request->password)
             ]);
 
             // create a Auth token for user
-            $token = $user->createToken($user->name . 'Auth-Token')->plainTextToken;
+            $token = $user->createToken($user->firstName . 'Auth-Token')->plainTextToken;
 
             return response()->json([
                 'message' => 'User Registered Successfully',

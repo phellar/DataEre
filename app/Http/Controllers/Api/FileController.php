@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\File;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessFileJob;
 
 class FileController extends Controller
 {
@@ -29,6 +30,10 @@ class FileController extends Controller
             'status' => 'pending'
         ]);
 
+        //   Dispatch job
+        ProcessFileJob::dispatch($file);
+
+        
         return response()->json([
             'message' => 'File uploaded successfully',
             'data' => $file
